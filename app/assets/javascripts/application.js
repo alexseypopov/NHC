@@ -117,7 +117,7 @@ function updateJobs(type)
 function  setCookies(type,result,stop)
 {
   resetJobs();
-  for(var k = 0; k < result.length; k++)
+  /*for(var k = 0; k < result.length; k++)
   {
     $.cookie('job' + k, '{"job": "' + result[k]["job"] +
       '","address": "' + result[k]["address"] +
@@ -134,25 +134,10 @@ function  setCookies(type,result,stop)
       '","zz_melways": "' + result[k]["zz_melways"] +
       '","supr_email": "' + result[k]["supr_email"] +
       '","coord_email": "' + result[k]["coord_email"] + '"}', { expires: 7, path: '/' });
-    /*$.cookie('job' + k, '{"job": "' + result[k]["JOB"] +
-      '","address": "' + result[k]["ADDRESS"] +
-      '","qmnum": "' + result[k]["QMNUM"] +
-      '","qmart": "' + result[k]["QMART"] +
-      '","qmartx": "' + result[k]["QMARTX"] +
-      '","clientname": "' + result[k]["CLIENTNAME"] +
-      '","clientname2": "' + result[k]["CLIENTNAME2"] +
-      '","soldto": "' + result[k]["SOLDTO"] +
-      '","contactname1": "' + result[k]["CONTACTNAME1"] +
-      '","telf1": "' + result[k]["TELF1"] +
-      '","telf2": "' + result[k]["TELF2"] +
-      '","contact_email1": "' + result[k]["CONTACT_EMAIL1"] +
-      '","zz_melways": "' + result[k]["ZZ_MELWAYS"] +
-      '","supr_email": "' + result[k]["SUPR_EMAIL"] +
-      '","coord_email": "' + result[k]["COORD_EMAIL"] + '"}', { expires: 7, path: '/' });*/
-  }
+  }*/
   $.cookie('job_count', result.length, { expires: 7, path: '/' });
   $.cookie('job_timer', ((stop % 360000) % 60000) / 1000, { expires: 7, path: '/' });
-  //reload(type);
+  reload(type);
 }
 function setVendorCookie()
 {
