@@ -38,9 +38,6 @@ gem 'savon', '~> 2.0'
 
 gem 'httpclient'
 
-
-gem 'rails_12factor', group: :production
-
 ruby '1.9.3'
 
 # To use ActiveModel has_secure_password
