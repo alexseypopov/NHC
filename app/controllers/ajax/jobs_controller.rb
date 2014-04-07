@@ -40,10 +40,12 @@ module Ajax
       hres = client.call(:z_eto_list_all, message: {TtApprMger: '', TtLfa1: '', TtMatkl: ''}).to_hash
       @vendors = []
 
+      Vendor.delete_all
       if hres[:z_eto_list_all_response][:tt_appr_mger]
         vendors = hres[:z_eto_list_all_response][:tt_appr_mger][:item]
         vendors.each do |vendor|
           @vendors << vendor
+          Vendor.create(bname: vendor[:bname], fullname: vendor[:fullname], email: vendor[:e_mail])
         end
       end
 

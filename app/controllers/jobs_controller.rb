@@ -22,9 +22,16 @@ class JobsController < ApplicationController
         @is_cookie = false
       end
       @arr_vendor = []
-      (0...cookies[:vendor_count].to_i).each do|count|
-        @arr_vendor << JSON.parse(cookies["vendor#{count}"])["fullname"]
+      #(0...cookies[:vendor_count].to_i).each do|count|
+      #  @arr_vendor << JSON.parse(cookies["vendor#{count}"])["fullname"]
+      #end
+
+      @vendors = Vendor.find(:all)
+
+      @vendors.each do |vendor|
+        @arr_vendor << vendor.fullname
       end
+
       if cookies[:vendor_count].to_i < 1
         @no_vendors = true
       end

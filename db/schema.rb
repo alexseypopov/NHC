@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(:version => 20131127040152) do
     t.datetime "book_date"
   end
 
+  create_table "vendors", :force => true do |t|
+    t.string   "bname"
+    t.string   "fullname"
+    t.string   "email"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"

@@ -149,15 +149,12 @@ function setVendorCookie()
     beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     data: {},
     success: function(result){
-      for(var k = 0; k < result.length; k++)
+      /*for(var k = 0; k < result.length; k++)
       {
         $.cookie('vendor'+k,'{"bname": "'+ result[k]["bname"] + 
           '","fullname": "' + result[k]["fullname"] +
           '","email": "' + result[k]["e_mail"] + '"}' , { expires: 7, path: '/' });
-        /*$.cookie('vendor'+k,'{"bname": "'+ result[k]["BNAME"] + 
-          '","fullname": "' + result[k]["FULLNAME"] +
-          '","email": "' + result[k]["E_MAIL"] + '"}' , { expires: 7, path: '/' });*/
-      }
+      }*/
       $.cookie('vendor_count', result.length, { expires: 7, path: '/' });
       if(current_job_id.length != 0)
       {
