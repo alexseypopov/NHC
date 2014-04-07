@@ -59,7 +59,7 @@ module Nhc
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.initialize_on_precompile = false
-    #config.assets.precompile += %w(reset.css)
+    config.assets.initialize_on_precompile = true
+    config.assets.precompile += %w(reset.css bootstrap-responsive.css)
   end
 end
