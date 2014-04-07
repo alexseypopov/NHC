@@ -12,7 +12,8 @@
  *= require_tree .
  *= require select2
  *= require reset
- */
+  */
+  @import 'bootstrap'
  .canvas{
  	height: 186px;
  	width: 303px;
