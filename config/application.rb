@@ -60,6 +60,6 @@ module Nhc
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = true
-    config.assets.precompile += %w(reset.css bootstrap-responsive.css jquery.signaturepad.css jquery.js jquery_ujs.js jquery-2.0.2.js jquery-ui.js jquery.bpopup.min.js json2.min.js jobs.js faults.js custom.js jquery.cookie.js sessions.js select2.js)
+    config.assets.precompile += %w(reset.css bootstrap-responsive.css jquery.signaturepad.css jquery.js jquery_ujs.js jquery-2.0.2.js jquery-ui.js jquery.bpopup.min.js json2.min.js jobs.js faults.js custom.js jquery.cookie.js select2.js)
   end
 end
