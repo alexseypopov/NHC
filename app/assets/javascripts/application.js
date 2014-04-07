@@ -75,7 +75,7 @@ function reload(type)
   {
     back_value[back_count] = window.location.pathname + '' + window.location.search;
     back_count += 1;
-    //setTimeout(function (){
+    setTimeout(function (){
       $('<div></div>').load(url + " div#" + div, null, 
       function (responseText, textStatus, XMLHttpRequest) {
           temp = $(this).html();
@@ -90,7 +90,7 @@ function reload(type)
           }
         }
       );
-    //}, 2000);
+    }, 2000);
   }
 }
 
@@ -102,7 +102,7 @@ function updateJobs(type)
   $.ajax({  
     type: "GET",
     url: "/ajax/update_jobs/", 
-    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    //beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     data: {},
     success: function(result){
       stop = new Date().getTime() - start;
