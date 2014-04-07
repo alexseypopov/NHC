@@ -102,7 +102,7 @@ function updateJobs(type)
   $.ajax({  
     type: "GET",
     url: "/ajax/update_jobs/", 
-    //beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     data: {},
     success: function(result){
       console.log(result);
@@ -117,7 +117,7 @@ function updateJobs(type)
 function  setCookies(type,result,stop)
 {
   resetJobs();
-  for(var k = 0; k < result.length; k++)
+  /*for(var k = 0; k < result.length; k++)
   {
     $.cookie('job' + k, '{"job": "' + result[k]["job"] +
       '","address": "' + result[k]["address"] +
@@ -134,7 +134,7 @@ function  setCookies(type,result,stop)
       '","zz_melways": "' + result[k]["zz_melways"] +
       '","supr_email": "' + result[k]["supr_email"] +
       '","coord_email": "' + result[k]["coord_email"] + '"}', { expires: 7, path: '/' });
-  }
+  }*/
   $.cookie('job_count', result.length, { expires: 7, path: '/' });
   $.cookie('job_timer', ((stop % 360000) % 60000) / 1000, { expires: 7, path: '/' });
   reload(type);

@@ -13,10 +13,14 @@ module Ajax
       hres = client.call(:z_nhc_supervisor_getjobs, message: {JobList: {Item: {Job:''}}, Zusername: username}).to_hash
       
       @jobs = []
+
+      Job.delete_all("user_id=#{current_user.id}")
       if hres[:z_nhc_supervisor_getjobs_response][:job_list]
         jobs = hres[:z_nhc_supervisor_getjobs_response][:job_list][:item]
         jobs.each do |job|
           @jobs << job
+          Job.create(user_id: current_user.id, job: job[:job], address: job[:address], qmnum: job[:qmnum], qmart: job[:qmart], qmartx: job[:qmartx], clientname: job[:clientname], clientname2: job[:clientname2], soldto: job[:soldto], contactname1: job[:contactname1], telf1: job[:telf1], telf2: job[:telf2], contact_email1: job[:contact_email1], zz_melways: job[:zz_melways], supr_email: job[:supr_email], coord_email: job[:coord_email])
+          
         end
       end
       render :json => @jobs, :status=> :ok

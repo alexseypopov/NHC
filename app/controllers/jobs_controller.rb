@@ -33,10 +33,11 @@ class JobsController < ApplicationController
   end
 
   def view_job
-    @jobs = []
-    (0...cookies[:job_count].to_i).each do |count|
-      @jobs << Job.new(JSON.parse(cookies["job#{count}"]))
-    end
+    #@jobs = []
+    #(0...cookies[:job_count].to_i).each do |count|
+    #  @jobs << Job.new(JSON.parse(cookies["job#{count}"]))
+    #end
+    @jobs = Job.where("user_id=?", current_user.id)
   end
 
   def view_draft

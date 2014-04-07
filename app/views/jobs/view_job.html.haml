@@ -11,7 +11,8 @@
     - if @jobs.present?
       - count = 0
       - @jobs.each do |current_job|
-        %button.btn{:style => "border-radius: 0; height: 55px; width: 100%;", :onclick => "current_job_id = #{count}; current_job_type='cookie'; return reload('entry');"}
+        /%button.btn{:style => "border-radius: 0; height: 55px; width: 100%;", :onclick => "current_job_id = #{count}; current_job_type='cookie'; return reload('entry');"}
+        %button.btn{:style => "border-radius: 0; height: 55px; width: 100%;", :onclick => "current_job_id = #{current_job.id}; current_job_type='database'; return reload('entry');"}
           %table
             %tr
               %td{:style => 'text-align:left; width:78px;'}
