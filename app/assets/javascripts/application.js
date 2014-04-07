@@ -16,6 +16,7 @@
 //= require select2
 //= require jobs
 //= require custom
+//= require_tree .
 var current_job_id;
 var current_job_type;
 var arr_vendor;
