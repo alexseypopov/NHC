@@ -152,7 +152,7 @@ function  setCookies(type,result,stop)
   }
   $.cookie('job_count', result.length, { expires: 7, path: '/' });
   $.cookie('job_timer', ((stop % 360000) % 60000) / 1000, { expires: 7, path: '/' });
-  reload(type);
+  //reload(type);
 }
 function setVendorCookie()
 {
