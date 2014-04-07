@@ -105,6 +105,8 @@ function updateJobs(type)
     //beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
     data: {},
     success: function(result){
+      console.log(result);
+      //return;
       stop = new Date().getTime() - start;
       setCookies(type,result,stop);
     }, 
