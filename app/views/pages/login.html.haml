@@ -1,0 +1,11 @@
+.container
+  .container.inner-container{:style => "background-color: lightGray;"}
+    %img{:src => "/assets/banner.jpg", :style => 'margin-bottom:10px;'}/
+    .login-frame
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:id => "sign_in_user", :style => 'margin:0;'}, :format => :json, :remote => true ) do |f|
+        %h6{:style => 'font-size:14px; margin:0;'} Login
+        = f.text_field :username, placeholder: 'Username', :required => :true, :name => "username"
+        = f.password_field :password, placeholder: "Password", :required => :true, :name => "password"
+        %br
+        = f.submit "Login", :class => "btn btn-primary", :style => 'font-weight: 700;border: 1px solid;color: #000;background-image: none;text-shadow: none;background-color: #fff;'
+      

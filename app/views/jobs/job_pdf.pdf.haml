@@ -1,0 +1,109 @@
+:css
+  .pdf {font-family:Museo;}
+  .pdf td {padding-left:10px;background-color:#e8e8e8;font-size:15px; line-height:38px;}
+  .pdf td.skyblue{ background-color:#c1e4ff;}
+  .pdf td.header {width:165px;}
+  .text {background-color:#336699; color:#fff; float:left; width:100%; text-align:center;font-size:16px;line-height:38px;}
+  .faults {float:left; width:100%; margin:10px 0;}
+  .fault {width: 682px; float:right;}
+  .fault-header {font-size:16px; float:left;}
+  .text.fault {background-color:#c2c9d1; color:#000; line-height:25px; text-align:left;}
+  .pdf td.fault {width: 107px;line-height:25px;}
+.pdf
+  %h2{:style=>"width:100%; text-align:center; font-size:17px; font-family:Museo;"}New Home Care Inspection 
+  %hr
+  %table{:style => 'width:100%; float:left;'}
+    %tr
+      %td.skyblue.header id
+      %td.skyblue 
+  .text Office Use Only
+  %table{:style => 'width:100%; float:left;'}
+    %tr
+      %td.header Job Type *
+      %td #{params[:job_type]}
+    %tr
+      %td.skyblue.header Date *
+      %td.skyblue= "#{params[:start_date].present? ? "#{params[:start_date].to_date.strftime('%d-%m-%Y')}" : "" }"
+    %tr
+      %td.header Booking Date
+      %td= "#{params[:book_date].present? ? "#{params[:book_date].to_date.strftime('%d-%m-%Y')}" : "" }"
+    %tr
+      %td.skyblue.header Supervisor ID
+      %td.skyblue Ashley.Robertson
+    %tr
+      %td.header Supervisor Name
+      %td 
+    %tr
+      %td.skyblue.header Job Number
+      %td.skyblue #{params[:qmnum]}
+  .text Client Details
+  %table{:style => 'width:100%; float:left;'}
+    %tr
+      %td.header Name
+      %td= "#{params[:clientname]} #{params[:clientname2].present? ? " & #{params[:clientname2]}" : ""}"
+    %tr
+      %td.skyblue.header Phone
+      %td.skyblue #{params[:telf1]}
+    %tr
+      %td.header Alt. Phone
+      %td #{params[:telf2]}
+    %tr
+      %td.skyblue.header Address
+      %td.skyblue #{params[:address]}
+    %tr
+      %td.header Melways Ref
+      %td #{params[:zz_melways]}
+  -if @faults.present?
+    .text Inspection Details
+    .faults
+      -@faults.each do |fault|
+        .fault-header NHC_Fault
+        .fault
+          .text.fault NHC_Fault
+          %table{:stlye => 'width:100%; float:left;'}
+            %tr
+              %td.skyblue.fault id
+              %td.skyblue{:style => 'width:625px;'}
+            %tr
+              %td.fault Detail *
+              %td #{fault["details"]}
+            %tr
+              %td.skyblue.fault Location *
+              %td.skyblue #{fault["location"]}
+            %tr
+              %td.fault Comment
+              %td=simple_format "#{fault["comment"]}"
+            %tr
+              %td.skyblue.fault Cause Code *
+              %td.skyblue #{fault["cause_code"]}
+            %tr
+              %td.fault Reason *
+              %td
+            %tr
+              %td.skyblue.fault Vendor
+              %td.skyblue #{fault["vendor"]}
+            %tr
+              %td.fault Photo
+              %td 
+                %img{:src => "#{fault['image']}", :width => '380px'}
+            %tr
+              %td.skyblue.fault Vendor ID
+              %td.skyblue
+  .text Agreement
+  %table{:style => 'width:100%; float:left;'}
+    %tr
+      %td.skyblue.header Signature *
+      %td.skyblue
+        %img{:src => "#{@image}"}
+    %tr
+      %td.header Name *
+      %td= "#{params[:clientname]} #{params[:clientname2].present? ? " & #{params[:clientname2]}" : ""}"
+    %tr
+      %td.skyblue.header Email
+      %td.skybl #{params[:email]}
+    %tr
+      %td.header Supervisor Email
+      %td #{params[:supr_email]}
+    %tr
+      %td.skyblue.header Coordinator Email
+      %td.skyblue #{params[:coord_email]}

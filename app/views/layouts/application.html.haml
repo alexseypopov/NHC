@@ -1,0 +1,64 @@
+!!!
+%html
+  %head
+    %title Porter Davis
+    = stylesheet_link_tag "reset", :media => "all"
+    = stylesheet_link_tag "bootstrap-responsive", :media => "all"
+    = stylesheet_link_tag "application", :media => "all" 
+    = stylesheet_link_tag "jquery.signaturepad", :media => "all" 
+    = javascript_include_tag "jquery"
+    = javascript_include_tag "jquery_ujs"
+    = javascript_include_tag "jquery-2.0.2" , :media => "all"
+    = javascript_include_tag "jquery-ui" , :media => "all"
+    = javascript_include_tag "jquery.bpopup.min" , :media => "all"
+    = javascript_include_tag "json2.min", :media => "all"
+    = javascript_include_tag "application", :media => "all"
+    = javascript_include_tag controller_name if File.exists?("#{Rails.root}/app/assets/javascripts/#{controller_name}.js")
+    = csrf_meta_tags
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{content: "yes", name: "apple-mobile-web-app-capable"}/ 
+  %body
+    #body
+      -if controller.action_name != 'job_pdf'
+        %header.headerBG
+          %ul.nav.nav-pills
+            %li.active
+              %button.btn.btn-primary{:onclick => "goBack()", :style => "margin-top: 3px;"} Back
+            %li
+              %img{:src => "/assets/home-icon.png", :style => "margin-top: 1px; margin-left: 20px; cursor: pointer; height:34px;", :onclick => 'return reload("home");'}/
+            - if current_user.present?
+              %li.dropdown.pull-right
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  Menu
+                  %b.caret
+                %ul.dropdown-menu
+                  %li{:onclick => 'return reload("job"); return false;'}
+                    %a Home Inspection
+                  %li.divider
+                  %li{:onclick => 'updateJobs("download"); return false;'} 
+                    %a Download Jobs
+                  %li{:onclick => 'return reload("job_list"); return false;'} 
+                    %a View Job List
+                  %li{:onclick => 'return reload("draft"); return false;'} 
+                    %a View Draft Job List
+                  %li.divider
+                  %li{:onclick => 'return reload("logout");'} 
+                    = link_to "Logout", destroy_user_session_path, :method => :delete
+
+              %li.dropdown.pull-right{:style => "margin-right: 10px; font-size:10px;"}
+                %i
+                  %p{:style => "font-size: 10px; margin: 0;"} 
+                  - if current_user.present?
+                    logged in as:
+                %br
+                %b
+                  %p{:style => "color: green; top: 15px; position: absolute;"}
+                    = current_user.try(:username).truncate(15)
+
+
+      #inner
+
+        = yield
+      #loader{:style => 'display: none;text-align: center;color: #fff;margin-top: 30px;'} 
+        %img{:src => '/assets/blue_loading.gif', :style => 'margin-top: 130px;height: 70px;'}
+  %img{:style => 'position:fixed; bottom:0; width:100%; z-index:-1;', :src => '/assets/pdh_background_v1.jpg'}

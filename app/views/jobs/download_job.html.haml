@@ -1,0 +1,11 @@
+.container
+  .container.inner-container{:style => "background-color: transparent;height:auto;margin-bottom: 0;padding-bottom: 0;"}
+    %img{:src => "/assets/banner.jpg"}/
+  .container.inner-container{:style => 'margin-top:0;'}
+    %h6{:style => 'font-size: 24px;'} Download Jobs
+    %h6
+      %strong #{@downloaded_jobs}
+      jobs downloaded.
+    %a{:onclick => 'return reload("job_list");'}
+      %button.btn{:style => "margin-bottom: 10px;font-weight: 700;border: 1px solid;"} Jobs on Device
+    %p{:style => "font-size: 10px;"} SAP response time: #{sprintf('%.2f',@job_timer)} seconds.

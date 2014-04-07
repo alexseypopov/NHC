@@ -1,0 +1,250 @@
+:css
+  td.pull-left{ width:100%;}
+  input, textarea{width:95%; float:left;}
+  .select2-container {width: 100%;}
+= form_tag "/create_pdf.pdf", :method => :post, target: "_blank" do |f|
+  .container
+    .container.inner-container{:style => "background-color: transparent;height:auto;margin-bottom: 0;padding-bottom: 0;"}
+      %img{:src => "/assets/banner.jpg"}/
+    .container.inner-container{:style => "background-color: #fff;margin-top:0;"}
+      -if @no_vendors
+        %table{:style => "background-color: #f3f3f3; margin-bottom: 20px; margin-left: 0;"}
+          %th
+            %h5{:style => "color: red;"} There are currently no vendors please update vendor list
+        %h6
+          %br
+          %button.btn.btn-primary{:onclick => "current_job_id =#{params[:id]};current_job_type='#{params[:type]}';setVendorCookie(); return false;"} Update Vendor List
+      -else
+        - ctr = 1
+        - if @job.present?
+          -arr_location=["Alfresco","Balcony","Bathroom", "Bathroom 2","Bedroom 2","Bedroom 2 Robe","Bedroom 2 WIR","Bedroom 3","Bedroom 3 Robe", "Bedroom 3 WIR","Bedroom 4", "Bedroom 4 Robe", "Bedroom 4 WIR", "Bedroom 5", "Bedroom 5 Robe", "Bedroom 5 WIR", "Bedroom 6", "Bedroom 6 Robe", "Bedroom 6 WIR","Broom", "Cloak", "Computer Hallway", "Computer Room","Courtyard", "Dining", "Driveway", "Ensuite 2", "Ensuite 3", "Ensuite 4", "Ensuite 5", "Entry", "Family", "Family Hallway", "Foyer", "Front Hallway", "Gallery", "Games", "Games Hallway", "Guest Suite", "Home Theatre", "Home Theatre Hallway", "Kids Play Study", "Kitchen", "Laundry", "Laundry Hallway", "Linen", "Lounge", "Lounge Hallway", "Master Bedroom", "Master Ensuite", "Master Ensuite WC", "Master WIR", "Meals","Mudroom", "Office", "Pantry", "Patio", "Powder", "Rear Hallway", "Roof", "Rumpus", "Second Rear Hallway", "Sitting", "Stairs", "Store", "Study", "Study Hallway", "Study Nook", "Terrace", "Veranda", "Walk In Linen", "Walk In Pantry", "WC", "Garage", "Portico", "Outside/External", "Roof", "Other"];
+          -arr_detail=["Adjust door to", "Adjust hinges to door at", "Adjust latch to door at", "Fill hole around HWS penetration", "Gap and touch up cornice to", "Gap and touch ip skirting to", "Gap and touch up architrave to", "Install door seal to", "Re seal shower to", "Re seal join to", "Re seal internal corner to", "Re trowel, sand and paint ceiling to", "Re trowel, sand and paint wall to", "Re trowel, sand and paint internal corner to", "Remove and replace", "Repair and paint plaster crack to", "Repair and paint cornice to", "Stain (or paint) top and bottom of door to", "Other"];
+          -arr_code=["CD Contract Dispute","EL Electrical","GM Ground Movement","IC Incomplete Construction","MD Managers Decision","MF Material Failure","MG Maintenance (General)","PLA Plaster","PLU Plumbing","PW Poor Workmanship","RL Roof Leak","SL Shower Leak","SW Supplier Warranty"];
+          -arr_vendors = @arr_vendor
+          #arr_vendors{:value => "#{@arr_vendor}"}
+          %input#user_id{:value => "#{current_user.id}", :name => 'user_id', :hidden => true}
+          %input#qmnum{:value => "#{@job.qmnum}", :name => "job_qmnum",:hidden=> true}
+          %input#qmart{:value => "#{@job.qmart}", :name => "job_qmart",:hidden=> true}
+          %input#qmartx{:value => "#{@job.qmartx}", :name => "job_qmartx",:hidden=> true}
+          %input#data{:value => "", :name => 'faults', :hidden => true}
+          %h3{:style => "margin-top: -10px; color:#000; text-align:left; font-size:17px;"} Home Care Inspection
+          %h5{:style => "color:#000; text-align:left;"} Office Use Only
+          %table{:style => "background-color: #f3f3f3; margin-bottom: 20px; margin-left: 0;"}
+            %tr{:bgcolor => "white"}
+              %td{:style => 'width: 91px;'}
+                %label Job Type*
+              %td.pull-left
+                
+                %select#job-type{:style => "margin-bottom: 2px; margin-top: 2px; margin-right: 4px;", :name=> 'job_type'}
+                  %option{:value => "3MM Inspection", :selected => "3MM Inspection" == @job.job ? true : false} 3MM Inspection
+                  %option{:value => "4MM Inspection", :selected => "12MM Inspection" == @job.job ? true : false} 12MM Inspection
+                  %option{:value => "Service Inspection", :selected => "Service Inspection" == @job.job ? true : false} Service Inspection
+                  %option{:value => "Structural Inspection", :selected => "Structural Inspection" == @job.job ? true : false} Structural Inspection
+                  %option{:value => "Restitution Inspection", :selected => "Restitution Inspection" == @job.job ? true : false} Restitution Inspection
+                
+            %tr
+              %td
+                %label Date
+              %td.pull-left
+                %input#date{:style => "margin-bottom: 2px; margin-top: 2px; margin-right: 4px;", :type => "date", :name => "start_date", :value => "#{@job.start_date.present? ? "#{@job.start_date.strftime("%Y-%m-%d")}" : "#{DateTime.now.strftime("%Y-%m-%d")}"}"}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Booking Date
+              %td.pull-left
+                %input#booking-date{:style => "margin-bottom: 2px; margin-top: 2px; margin-right: 4px;", :type => "date", :value => "#{@job.book_date.present? ? "#{@job.book_date.strftime("%Y-%m-%d")}" : "#{DateTime.now.strftime("%Y-%m-%d")}"}", :name => "book_date"}
+
+            %tr
+              %td
+                %label Supervisor ID
+              %td.pull-left
+                %input#supervisor-id{:disabled => true, :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "Ashley Robertson"}/
+                %input{:value => "Ashley Robertson", :name => "supervisor_id", :hidden => true}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Job Number
+              %td.pull-left
+                %input#job-number{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.qmnum}"}
+            %th{colspan: "2"}
+              %h5{:style => "color: red; text-align:left;"} Client Details
+            %tr{:bgcolor => "white"}
+              %td
+                %label Name
+              %td.pull-left
+                %input{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.clientname} #{@job.clientname2 != 'null' ? " & #{@job.clientname2}" : ""}", :name => "clientname"}/
+                %input#client-name{:value => "#{@job.clientname} #{@job.clientname2 != 'null' ? " & #{@job.clientname2}" : ""}", :name => "clientname", :hidden => true}
+            %tr
+              %td
+                %label Phone
+              %td.pull-left
+                %input#phone{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.telf1}"}/
+                %input{:value => "#{@job.telf1}", :name => "telf1", :hidden => true}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Alt. Phone
+              %td.pull-left
+                %input#alt-phone{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.telf2 != 'null' ? "#{@job.telf2.to_s}" : ""}"}/
+                %input{:value => "#{@job.telf2}", :name => "telf2", :hidden => true}
+            %tr
+              %td
+                %label Address
+              %td.pull-left
+                %input#address{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.address}"}/
+                %input{:value => "#{@job.address}", :name => "address", :hidden => true}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Melways Ref
+              %td.pull-left
+                %input#melways-ref{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.zz_melways != 'null' ? "#{@job.zz_melways.to_s}" : ""}"}/
+                %input{:value => "#{@job.zz_melways}", :name => "zz_melways", :hidden => true}
+            %th#inspection-details-label{colspan: "2"}
+              %h5{:style => "color: red; text-align:left;"} Inspection Details
+            / Add Fault
+            %tbody#fault
+              -if @faults.present?
+                -@faults.each do |fault|
+                  #fault_id{:id => "#{ctr}" ,:value => "#{fault.id}"}
+                  %tr{:class => "#{ctr}", bgcolor: "white", style: "border-top: 2px solid black;"}
+                    %td
+                      %label
+                        %label Remove Fault
+                    %td.pull-left
+                      %button.btn{:onclick=>"addColumns(false,#{ctr}); return false;", :style=>"margin-bottom: 2px; height: 36px; width: 36px; margin-top: 2px;font-weight: 700;border: 1px solid; float:left;", :id => "#{ctr}"}-
+                  %tr{:class => "#{ctr}"}
+                    %td
+                      %label Detail*
+                    %td.pull-left
+                      #s2id_detail.select2-container{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                        %select#detail{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                          -arr_detail.each do |detail|
+                            %option{:selected => fault.details == detail ? true : false} #{detail}
+                    %tr{bgcolor: "white", :class => "#{ctr}"}
+                      %td
+                        %label Location*
+                      %td.pull-left
+                        #s2id_location.select2-container{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                          %input#s2id_autogen2.select2-focusser.select2-offscreen{type: "text"}
+                            .select2-drop.select2-display-none.select2-with-searchbox
+                              .select2-search
+                                %input.select2-input{autocapitalize: "off", autocomplete: "off", autocorrect: "off", spellcheck: "false", type: "text"}
+                                %ul.select2-results
+                            %select#location{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                              -arr_location.each do |location|
+                                %option{:selected => fault.location == location ? true : false} #{location}
+                      %tr{:class => "#{ctr}"}
+                        %td
+                          %label Comment
+                        %td.pull-left
+                          %textarea#comment{style: "margin-bottom: 2px; height: 70px; margin-top: 2px; resize:none;", :id => "#{ctr}"} #{fault.comment}
+                      %tr{bgcolor: "white" , :class => "#{ctr}"}
+                        %td
+                          %label Cause Code*
+                        %td.pull-left
+                          #s2id_cause-code.select2-container{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                            %input#s2id_autogen4.select2-focusser.select2-offscreen{type: "text"}
+                              .select2-drop.select2-display-none.select2-with-searchbox
+                                .select2-search
+                                  %input.select2-input{autocapitalize: "off", autocomplete: "off", autocorrect: "off", spellcheck: "false", type: "text"}
+                                  %ul.select2-results
+                              %select#cause-code{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                                -arr_code.each do |code|
+                                  %option{:selected => fault.cause_code == code ? true : false} #{code}
+                        %tr{:class => "#{ctr}"}
+                          %td
+                            %label Reason*
+                          %td.pull-left
+                            %input#reason{style: "margin-bottom: 2px; margin-top: 2px; background-color: #FFB8B8;", type: "text", :id => "#{ctr}", :value => "#{fault.reason}"}/
+                          %tr{bgcolor: "white" , :class => "#{ctr}"}
+                            %td
+                              %label Vendor*
+                            %td.pull-left
+                              #s2id_vendor.select2-container{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                                %input#s2id_autogen5.select2-focusser.select2-offscreen{type: "text"}
+                                  .select2-drop.select2-display-none.select2-with-searchbox
+                                    .select2-search
+                                      %input.select2-input{autocapitalize: "off", autocomplete: "off", autocorrect: "off", spellcheck: "false", type: "text"}
+                                      %ul.select2-results
+                                  %select#vendor{style: "margin-bottom: 2px; margin-top: 2px;", :id => "#{ctr}"}
+                                    -arr_vendors.each do |vendor|
+                                      %option{:selected => fault.vendor == vendor ? true : false} #{vendor}
+                            %tr{:class => "#{ctr}"}
+                              %td
+                                %label Photo
+                              %td.pull-left
+                                %img#fault_image{:id => "#{ctr}", :src => "#{fault.image}" , :width => '100px'}
+                                %input.image#type_image{style: "width: 200px;", type: "file", :id => "#{ctr}"}/
+                              %tr{style: "border-bottom: 2px solid black;", :class => "#{ctr}"}
+                                %td
+                                %td
+                                  %button.btn.pull-left{style: "margin-bottom: 20px; margin-right: 10px; width: 30px; height: 20px;", :onclick => "removeImage(#{ctr}); return false;"} -
+                                  %p.pull-left Remove File
+                  - ctr += 1
+            #ctr_value{:value => "#{ctr}"}
+            / end Add Fault
+            %tr{:bgcolor => "white"}
+              %td
+                %label
+                  %label Add Fault
+              %td.pull-left
+                %button.btn{:onclick => "addColumns(true); return false;", :style => "margin-bottom: 2px; height: 36px; width: 36px; margin-top: 2px; font-weight: 700;border: 1px solid; float:left;"} +
+            %th
+              %h5{:style => "color: red;"} Agreement
+            %tr{:bgcolor => "white"}
+              %td
+                %label Signature*
+              %td
+                %button#signature.btn.pull-left{:style => "margin-bottom: 2px; height: 36px; width: 100px; margin-top: 2px;font-weight: 700;border: 1px solid; ", :onclick => 'openCanvas(); return false;'} Signature
+                %button#remove.btn.pull-left{:onclick => "saveSignatureClear(); return false;", :style => " margin-top: 12px; margin-left: 10px; width: 30px; height: 20px;"}
+                %p.pull-left{:style => " margin-top: 12px; margin-bottom: 0; margin-left: 10px; width: 30px; height: 20px;"} remove
+            %tr{:bgcolor => "white", :style => "height:0;"}
+              %td
+              %td
+                %img#saveSignature.pull-left{:style => "border: 1px solid black; width: 220px; margin-bottom: 5px; display: #{@job.signature.present? ? "block" : "none"};", :src => "#{@job.signature_url}", :name => 'image'}/
+                %input#job_signature_temp{:hidden => true, :name => 'job_signature_temp', :value => ''}
+                %input#image_signature{:value => "#{@job.signature_url}", :name => 'job_signature', :hidden => true}
+
+            %tr
+              %td
+                %label Name*
+              %td.pull-left
+                %input#contact-name{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.contactname1}"}/
+                %input{:value => "#{@job.contactname1}", :name => 'contactname1', :hidden => true}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Email
+              %td.pull-left
+                %input#email{:style => "margin-bottom: 2px; margin-top: 2px; margin-right: 4px;", :type => "email", :name => 'email', :value => "#{@job.contact_email1}"}/
+            %tr
+              %td
+                %label Supervisor Email:
+              %td.pull-left
+                %input#supervisor-email{:disabled => "", :style => "margin-bottom: 2px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.supr_email}"}/
+                %input{:value => "#{@job.supr_email}", :name => 'supr_email', :hidden => true}
+            %tr{:bgcolor => "white"}
+              %td
+                %label Coordinator Email:
+              %td.pull-left
+                %input#coordinator-email{:disabled => "", :style => "margin-bottom: 10px; margin-top: 2px; background-color: #cfcdce; color: blue; margin-right: 4px;", :type => "text", :value => "#{@job.coord_email}"}/
+                %input{:value => "#{@job.coord_email}", :name => 'coord_email', :hidden => true}
+          %button.btn{:style => "width: 27%;min-width:96px;", :onclick => "return saveJob(); return false;"}
+            %b Save Draft
+          %button.btn{:style => "width:  27%;min-width:96px;", :onclick => 'return printPDF();'} 
+            %b Submit
+          %button.btn{:style => "width:  27%;min-width:96px;", :onclick => "clearEntry(); return false;"} 
+            %b Clear
+          - if !@is_cookie
+            %button.btn{:style => "color:red; width:  27%; min-width:106px;margin-top: 10px;", :onclick => "deleteEntry(); return false;"} 
+              %b Delete Draft
+
+.canvas#canvas{:style => "display: none; position: absolute; background-color: white; text-align: center; "}
+  %form.sigPad{:action => "", :method => "post"}
+    %ul.sigNav
+      %li.drawIt
+        %a{:href => "#draw-it"} Sign
+      %li{:onclick => "signatureSave()"}
+        %a{:onclick => "signatureSave()"} Commit
+      %li.clearButton
+        %a{:href => "#clear"} Clear
+    .sig.sigWrapper{:style => "background-color: white;"}
+      .typed
+      %canvas.pad#theSignature{:style => "width: 100%; height: 100%;"}
+      %input.output{:name => "output", :type => "hidden"}

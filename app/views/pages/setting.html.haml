@@ -1,0 +1,15 @@
+.container
+  .container.inner-container{:style => "background-color: transparent; height:auto;margin-bottom: 0;padding-bottom: 0;"}
+    %img{:src => "/assets/banner.jpg"}/
+  .container.inner-container{:style => 'margin-top:0;'}
+    %h6{:style => 'font-size:24px; margin-bottom:20px;'} Advanced Settings
+    %h6
+      %i Clear all of the data stored on this device.
+      %br
+      %button.btn{:style => "margin-top: 5px; width: 140px;font-weight: 700;border: 1px solid;", :onclick => 'clearData(); alert("Cleared all information")'} Clear Data
+
+
+    %h6
+      %i Update the vendor list to the most current information.
+      %br
+      %button.btn{:onclick => 'current_job_id = ""; setVendorCookie()', :style => 'font-weight: 700;border: 1px solid; margin-top:5px;'} Update Vendor List

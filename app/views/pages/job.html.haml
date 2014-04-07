@@ -1,0 +1,7 @@
+.container  
+  .container.inner-container{:style => "background-color: transparent;height:auto;margin-bottom: 0;padding-bottom: 0;"}
+    %img{:src => "/assets/banner.jpg"}/
+  .container.inner-container{:style => "background-color: transparent;margin-top:0;"}
+    %button.btn.btn-primary{:style => "width: 80%; height: 40px; margin-bottom: 10px;", :onclick => 'updateJobs("download");'} Download Jobs
+    %button.btn.btn-primary{:style => "width: 80%; height: 40px; margin-bottom: 10px;",:onclick => 'return reload("job_list");'} View Job List
+    %button.btn.btn-primary{:style => "width: 80%; height: 40px;",:onclick => 'return reload("draft");'} View Draft List
