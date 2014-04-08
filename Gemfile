@@ -12,6 +12,7 @@ gem 'rmagick', '2.13.2'
 gem 'wicked_pdf', '0.9.5'
 gem 'carrierwave', '0.8.0'
 gem 'fog', '1.3.1'
+gem "wkhtmltopdf"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,7 +35,7 @@ gem 'savon', '~> 2.0'
 
 gem 'httpclient'
 
-gem "wkhtmltopdf"
+
 #gem "wkhtmltopdf-heroku"#, group: :production
 
 ruby '1.9.3'
