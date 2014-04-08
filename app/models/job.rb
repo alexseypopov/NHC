@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  attr_accessible :job, :address, :qmnum, :qmart, :qmartx, :clientname, :clientname2, :soldto, :contactname1, :telf1, :telf2, :contact_email1, :contact_email2, :zz_melways, :supr_email, :coord_email, :start_date, :book_date, :signature, :user_id
+  attr_accessible :job, :address, :qmnum, :qmart, :qmartx, :clientname, :clientname2, :soldto, :contactname1, :telf1, :telf2, :contact_email1, :contact_email2, :zz_melways, :supr_email, :coord_email, :start_date, :book_date, :signature, :user_id, :user_token, :kind
   has_many :faults  
   belongs_to :user
 

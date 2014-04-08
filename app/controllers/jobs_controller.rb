@@ -13,12 +13,12 @@ class JobsController < ApplicationController
       @job =Job.new(JSON.parse(cookies["job#{params[:id]}"])) if cookies["job#{params[:id]}"] && params[:type] == 'cookie'
       @is_cookie = true
       if @job.present?
-        if Job.find_by_qmnum_and_user_id(@job.qmnum, current_user.id)
-          @job = Job.find_by_qmnum_and_user_id(@job.qmnum, current_user.id) 
+        if Job.find_by_qmnum_and_user_token(@job.qmnum, cookies[:security_token])
+          @job = Job.find_by_qmnum_and_user_token(@job.qmnum, cookies[:security_token]) 
           @is_cookie = false
         end
       else
-        @job = Job.find_by_id_and_user_id(params[:id],current_user.id)
+        @job = Job.find_by_id_and_user_token(params[:id],cookies[:security_token])
         @is_cookie = false
       end
       @arr_vendor = []
@@ -44,11 +44,11 @@ class JobsController < ApplicationController
     #(0...cookies[:job_count].to_i).each do |count|
     #  @jobs << Job.new(JSON.parse(cookies["job#{count}"]))
     #end
-    @jobs = Job.where("user_id=?", current_user.id)
+    @jobs = Job.where("user_token=? and kind = ?", cookies[:security_token], "job")
   end
 
   def view_draft
-    @jobs = Job.where('user_id = ?', current_user.id)
+    @jobs = Job.where('user_token = ? and kind = ?', cookies[:security_token], 'draft')
   end
 
   def job_pdf

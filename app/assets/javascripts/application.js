@@ -202,6 +202,8 @@ function clearData()
   $.removeCookie('in_goal',{ expires: 7, path: '/' });
   $.removeCookie('job_count',{ expires: 7, path: '/' });
   $.removeCookie('job_timer',{ expires: 7, path: '/' });
+  $.removeCookie('username',{ expires: 7, path: '/' });
+  $.removeCookie('security_token',{ expires: 7, path: '/' });
 }
 function setSelectValues()
 {

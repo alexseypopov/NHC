@@ -5,9 +5,14 @@ $(document).ready(function(){
     $("#inner").hide('slide');
     $("#loader").show('slide');
     var u = $.trim(document.getElementById("user_username").value);
-    var p = $.trim(document.getElementById("user_password").value);
+    //var p = $.trim(document.getElementById("user_password").value);
     $(window).scrollTop($('#body').offset().top);
-    $.ajax({        
+
+    $.cookie('username', u, { expires: 7, path: '/' });
+    $.cookie('security_token', token(), { expires: 7, path: '/' });
+
+    reload('home');
+    /*$.ajax({        
       type: "POST", 
       url:"../../users/sign_in", 
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -30,7 +35,7 @@ $(document).ready(function(){
           $("#loader").hide('slide');
         }
       }
-    });
+    });*/
     return false; 
   });
   setSelectValues();
@@ -197,5 +202,13 @@ function saveSignatureClear() {
 // 	win.focus();
 
 // }
+
+var rand = function() {
+    return Math.random().toString(36).substr(2); // remove `0.`
+};
+
+var token = function() {
+    return rand() + rand(); // to make it longer
+};
 
 

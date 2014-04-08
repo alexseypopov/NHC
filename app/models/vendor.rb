@@ -1,3 +1,3 @@
 class Vendor < ActiveRecord::Base
-  attr_accessible :bname, :fullname, :email
+  attr_accessible :bname, :email, :fullname
 end

@@ -22,7 +22,8 @@
           -arr_code=["CD Contract Dispute","EL Electrical","GM Ground Movement","IC Incomplete Construction","MD Managers Decision","MF Material Failure","MG Maintenance (General)","PLA Plaster","PLU Plumbing","PW Poor Workmanship","RL Roof Leak","SL Shower Leak","SW Supplier Warranty"];
           -arr_vendors = @arr_vendor
           #arr_vendors{:value => "#{@arr_vendor}"}
-          %input#user_id{:value => "#{current_user.id}", :name => 'user_id', :hidden => true}
+          %input#user_token{:value => "#{cookies[:security_token]}", :name => 'user_token', :hidden => true}
+          %input#kind{:value => "draft", :name => "job_kind",:hidden=> true}
           %input#qmnum{:value => "#{@job.qmnum}", :name => "job_qmnum",:hidden=> true}
           %input#qmart{:value => "#{@job.qmart}", :name => "job_qmart",:hidden=> true}
           %input#qmartx{:value => "#{@job.qmartx}", :name => "job_qmartx",:hidden=> true}

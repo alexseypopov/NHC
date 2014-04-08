@@ -12,7 +12,6 @@ gem 'rmagick', '2.13.2'
 gem 'wicked_pdf', '0.9.5'
 gem 'carrierwave', '0.8.0'
 gem 'fog', '1.3.1'
-gem 'rmagick', '2.13.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,15 +27,14 @@ end
 
 gem 'jquery-rails'
 gem 'select2-rails'
-gem 'carrierwave', '0.8.0'
-gem 'rmagick', '2.13.2'
-gem 'fog', '1.3.1'
 gem 'devise', '2.2.3'
 gem 'bcrypt-ruby', '3.1.2'
 
 gem 'savon', '~> 2.0'
 
 gem 'httpclient'
+
+#gem "wkhtmltopdf-heroku", group: :production
 
 ruby '1.9.3'
 

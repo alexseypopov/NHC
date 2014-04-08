@@ -17,5 +17,13 @@ class ApplicationController < ActionController::Base
   # def after_sign_in_path_for(resource)
   #   root_path
   # end
+
+  def authenticate_user!
+    if cookies[:username]
+      
+    else
+      redirect_to '/users/sign_in'
+    end
+  end
   
 end

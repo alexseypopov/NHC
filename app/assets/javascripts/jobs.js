@@ -26,6 +26,7 @@ function saveJob()
     $("#loader").show('slide');
     var data={
       job   : $('#job-type').val(),
+      kind   : $('#kind').val(),
       address : $('#address').val(),
       qmnum : $('#qmnum').attr("value"),
       qmart    : $('#qmart').attr("value"),
@@ -42,7 +43,7 @@ function saveJob()
       zz_melways : $('#melways-ref').val(),
       supr_email : $('#supervisor-email').val(),
       coord_email : $('#coordinator-email').val(),
-      user_id : $('#user_id').attr("value")
+      user_token : $('#user_token').attr("value")
 
     };
     fault_ids = new Array();
