@@ -166,6 +166,7 @@ GEM
       nokogiri (>= 1.4.0)
     wicked_pdf (0.9.5)
       rails
+    wkhtmltopdf (0.1.2)
 
 PLATFORMS
   ruby
@@ -189,3 +190,4 @@ DEPENDENCIES
   simple_form (= 2.1.0)
   uglifier (>= 1.0.3)
   wicked_pdf (= 0.9.5)
+  wkhtmltopdf
