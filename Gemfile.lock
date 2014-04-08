@@ -167,6 +167,7 @@ GEM
     wicked_pdf (0.9.5)
       rails
     wkhtmltopdf (0.1.2)
+    wkhtmltopdf-heroku (1.0.0)
 
 PLATFORMS
   ruby
@@ -191,3 +192,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   wicked_pdf (= 0.9.5)
   wkhtmltopdf
+  wkhtmltopdf-heroku

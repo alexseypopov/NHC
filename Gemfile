@@ -36,7 +36,7 @@ gem 'savon', '~> 2.0'
 gem 'httpclient'
 
 
-#gem "wkhtmltopdf-heroku"#, group: :production
+gem "wkhtmltopdf-heroku", group: :production
 
 ruby '1.9.3'
 
